@@ -22,4 +22,6 @@ Display a list of Synthetix perps markets.
 - The list of markets should be ordered by market size
 - You should make use of styled-components
 
+[Figma File](https://www.figma.com/file/zxzYWNqKSnjGSnXd5tYIDN/Markets-List?type=design&node-id=0%3A1&t=iM2wd9Y4mCMPJ7H7-1)
+
 ![Design](public/markets-list.png)
