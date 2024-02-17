@@ -1,5 +1,5 @@
 // PerpsMarketList.tsx
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { Contract, JsonRpcProvider } from 'ethers';
 import { CONTRACT_ABI, ETHEREUM_NODE_URL, MockMarketList, PerpsMarket } from '../../constants';
@@ -27,10 +27,7 @@ const PerpsMarketList: React.FC = () => {
         // Retrieve list of perps markets
         const marketsList = (await contract.getMarkets()) as PerpsMarket[];
 
-        // Sort markets by size
-        const sortedMarkets = marketsList.sort((a, b) => b.marketSize - a.marketSize);
-
-        setMarkets(sortedMarkets);
+        setMarkets(marketsList);
       } catch (error: Error | unknown) {
         // error always occurs because of the ETHEREUM_NODE_URL,CONTRACT_ABI are not given,
         // return the mock list
@@ -40,6 +37,11 @@ const PerpsMarketList: React.FC = () => {
 
     fetchData();
   }, []);
+
+  const sortedList = useMemo(() => {
+    // Sort markets by size
+    return markets.sort((a, b) => b.marketSize - a.marketSize);
+  }, [markets])
 
   const NameRender = styled.span`
   font-weight: 700
@@ -53,7 +55,7 @@ const PerpsMarketList: React.FC = () => {
     { header: "MARKER/TAKER", render: ({ makerFee, takerFee }) => `${makerFee}%/${takerFee}%` },
   ]
   return (
-    <Table data={MockMarketList} columns={columns} />
+    <Table data={markets} columns={columns} />
   );
 };
 
