@@ -55,7 +55,7 @@ const PerpsMarketList: React.FC = () => {
     { header: "MARKER/TAKER", render: ({ makerFee, takerFee }) => `${makerFee}%/${takerFee}%` },
   ]
   return (
-    <Table data={markets} columns={columns} />
+    <Table data={sortedList} columns={columns} />
   );
 };
 
